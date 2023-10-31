@@ -5,6 +5,7 @@
     width: 100%;
     gap: 1px;
 }
+
 .footer__nav ul li {
     background-color: var(--colorRojo);
     text-align: center;
