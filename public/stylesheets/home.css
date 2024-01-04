@@ -15,6 +15,7 @@
   transition: all 0.5s ease;
   border-radius: 5px;
 }
+
 .home__main__products__product:hover{
   transform: scale(1.05);
 }
