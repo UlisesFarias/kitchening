@@ -29,12 +29,14 @@
                                     <input name="name" type="text" class="form-control" id="name" value="<%= name %>">
                                     <label for="name">Nombre</label>
                                   </div>
+                                  <small class="text-danger ms-2"><%= (locals.errors && errors.name) && errors.name.msg %></small>
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                               <div class="form-floating">
                                 <input name="address" type="text" class="form-control" id="address" value="<%= address %>">
                                 <label for="address">Dirección</label>
                               </div>
+                              <small class="text-danger ms-2"><%= (locals.errors && errors.address) && errors.address.msg %></small>
                             </div>
                             <div class="col-12 mb-3 d-flex justify-content-between align-items-center gap-3">
                                 <div class="form-floating w-100">
