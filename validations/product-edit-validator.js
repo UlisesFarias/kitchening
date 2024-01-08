@@ -1,5 +1,4 @@
-const {check,body} = require('express-validator');
-
+const {check} = require('express-validator');
 
 module.exports = [
     check('name')
@@ -7,9 +6,13 @@ module.exports = [
     check('address')
         .notEmpty().withMessage('La dirección es requerida'),
     check('url_map')
-        .notEmpty().withMessage('La ubicación es requerida'),
+        .isURL().withMessage('Debe ser un URL válida'),
     check('category')
         .notEmpty().withMessage('La categoría es requerida'),
     check('description')
-        .notEmpty().withMessage('La descripción es requerida'),
+        .notEmpty().withMessage('La descripción es requerida').bail()
+        .isLength({
+            min: 20,
+            max: 500
+        }).withMessage('La descripción debe tener entre 20 y 500 caracteres'),
 ]
