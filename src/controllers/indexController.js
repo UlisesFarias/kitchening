@@ -1,36 +1,48 @@
-const { leerJSON } = require("../data")
+const { validationResult } = require("express-validator");
+const User = require("../data/User");
+const { leerJSON, escribirJSON } = require("../data");
 
 module.exports = {
-    index : (req,res) => {
-        
-        const products = leerJSON('products');
-        return res.render('index', {
-            products
-        })
+    register : (req,res) => {
+        return res.render('users/register')
     },
-    cart : (req,res) => {
-        return res.render('carrito')
+    processRegister : (req,res) => {
+        const errors = validationResult(req);
+        const {name, surname, email, password} = req.body;
+
+        if(errors.isEmpty()){
+
+            const users = leerJSON('users');
+            const newUser = new User(name, surname, email, password);
+            users.push(newUser);
+
+            escribirJSON(users, 'users')
+
+            return res.redirect('/usuarios/ingreso')
+            
+
+        }else{
+            return res.render('users/register',{
+                old : req.body,
+                errors : errors.mapped()
+            })
+        }
+
     },
-    admin : (req,res) => {
-        const products = leerJSON('products');
-
-        return res.render('dashboard', {
-            products
-        })
+    login : (req,res) => {
+        return res.render('users/login')
     },
-    searchAdmin : (req,res) => {
+    processLogin : (req,res) => {
+        const errors = validationResult(req);
+        const {email} = req.body;
 
-        const {keyword} = req.query
+        if(errors.isEmpty()){
 
-        const products = leerJSON('products');
 
-        const result = products.filter((product) => {
-            return product.name.toLowerCase().includes(keyword.toLowerCase()) || product.address.toLowerCase().includes(keyword.toLowerCase())
-        });
-
-        return res.render('dashboard', {
-            products : result,
-            keyword
-        })
-    }
+        }else {
+            return res.render('users/login',{
+                errors : errors.mapped()
+            })
+        }
+    },
 }
