@@ -1,48 +1,36 @@
-const { validationResult } = require("express-validator");
-const User = require("../data/User");
-const { leerJSON, escribirJSON } = require("../data");
+const { leerJSON } = require("../data")
 
 module.exports = {
-    register : (req,res) => {
-        return res.render('users/register')
+    index : (req,res) => {
+        console.log(req.session);
+        const products = leerJSON('products');
+        return res.render('index', {
+            products
+        })
     },
-    processRegister : (req,res) => {
-        const errors = validationResult(req);
-        const {name, surname, email, password} = req.body;
-
-        if(errors.isEmpty()){
-
-            const users = leerJSON('users');
-            const newUser = new User(name, surname, email, password);
-            users.push(newUser);
-
-            escribirJSON(users, 'users')
-
-            return res.redirect('/usuarios/ingreso')
-            
-
-        }else{
-            return res.render('users/register',{
-                old : req.body,
-                errors : errors.mapped()
-            })
-        }
-
+    cart : (req,res) => {
+        return res.render('carrito')
     },
-    login : (req,res) => {
-        return res.render('users/login')
+    admin : (req,res) => {
+        const products = leerJSON('products');
+
+        return res.render('dashboard', {
+            products
+        })
     },
-    processLogin : (req,res) => {
-        const errors = validationResult(req);
-        const {email} = req.body;
+    searchAdmin : (req,res) => {
 
-        if(errors.isEmpty()){
+        const {keyword} = req.query
 
+        const products = leerJSON('products');
 
-        }else {
-            return res.render('users/login',{
-                errors : errors.mapped()
-            })
-        }
-    },
+        const result = products.filter((product) => {
+            return product.name.toLowerCase().includes(keyword.toLowerCase()) || product.address.toLowerCase().includes(keyword.toLowerCase())
+        });
+
+        return res.render('dashboard', {
+            products : result,
+            keyword
+        })
+    }
 }
