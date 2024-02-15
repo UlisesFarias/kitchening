@@ -14,5 +14,13 @@
       "email": "user@gmail.com",
       "password": "$2a$10$RYlTHCTSNL.TcXAsxEDsZ.kFveiQSIgnl/rXZY.ovHhyi0jmq0FfW",
       "role": "user"
+   },
+   {
+      "id": "6d5a97db-d72c-47f8-a8bd-c0602a4e7e9a",
+      "name": "Ulises",
+      "surname": "Farias",
+      "email": "Ulisesfarias1905@hotmail.com",
+      "password": "$2a$10$D69rFR4/4RUp4XAZ0MUbfu2oznKQ7fRBlhwFwE4Uh4B5aZdVl/k1G",
+      "role": "admin"
    }
 ]

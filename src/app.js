@@ -1,3 +1,4 @@
+require('dotenv').config()
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -35,7 +36,9 @@ app
 
   /* configuración de session */
   .use(session({
-    secret : 'Kitchening forever!!'
+    secret : 'Kitchening forever!!',
+    resave : true,
+    saveUninitialized:true
   }))
 
   .use(transferLocals)
